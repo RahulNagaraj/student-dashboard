@@ -6,8 +6,7 @@ import Header from '../header'
 
 const App = () => (
   <div>
-    <Header>
-    </Header>
+    <Header />
 
     <main>
       <Route exact path="/" component={Home} />
