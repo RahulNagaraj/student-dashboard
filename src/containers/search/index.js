@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, FormGroup, Label, Input } from 'reactstrap'
+import { Form, FormGroup, Input } from 'reactstrap'
 
 const Search = () => (
   <div>
