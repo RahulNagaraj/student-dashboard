@@ -10,7 +10,10 @@ import {
   Button
 } from 'reactstrap';
 import Search from '../search';
-import { sort } from '../../actions/'
+import { 
+  sort,
+  sortMarks
+} from '../../actions/'
 
 class Header extends Component {
   constructor(props) {
@@ -28,13 +31,21 @@ class Header extends Component {
     });
   }
 
-  handleOnClick = (event) => {
-    console.log(this.props.sortNames)
+  handleOnNameBtnClick = (event) => {
     const { sortNames } = this.props
     if (sortNames.sortBy === 'asc') {
       this.props.sortAsc()
     } else {
       this.props.sortDesc()
+    }
+  }
+
+  handleOnTMBtnClick = (event) => {
+    const { sortMarks } = this.props
+    if (sortMarks.sortBy === 'asc') {
+      this.props.sortTMAsc()
+    } else {
+      this.props.sortTMDesc()
     }
     
   }
@@ -51,10 +62,20 @@ class Header extends Component {
                 <Search />
               </NavItem>
               <NavItem>
-                <Button 
+                <Button
+                  outline
                   color="info"
-                  onClick={this.handleOnClick}
-                >Sort By</Button>
+                  onClick={this.handleOnNameBtnClick}
+                >
+                Sort By Name</Button>
+              </NavItem>
+              <NavItem>
+                <Button
+                  outline
+                  color="info"
+                  onClick={this.handleOnTMBtnClick}
+                >
+                Sort By Total Marks</Button>
               </NavItem>
             </Nav>
           </Collapse>
@@ -68,13 +89,16 @@ function mapDispatchToProps(dispatch) {
   return {
     sortAsc: () => dispatch(sort.sortNamesAlphabetically()),
     sortDesc: () => dispatch(sort.sortNamesReverseAlphabetically()),
+    sortTMAsc: () => dispatch(sortMarks.sortTotalMarksAscending()),
+    sortTMDesc: () => dispatch(sortMarks.sortTotalMarksDescending())
   }
 }
 
 function mapStateToProps(state) {
-  const { sortNames } = state;
+  const { sortNames, sortMarks } = state;
   return {
-    sortNames
+    sortNames,
+    sortMarks
   }
 }
 

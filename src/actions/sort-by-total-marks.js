@@ -1,4 +1,5 @@
 import * as types from './types'
+import * as utils from '../utils'
 
 const requestSortTotalMarksAscending = () => {
   return dispatch => {
@@ -35,7 +36,25 @@ const receiveSortTotalMarksDescending = (data) => {
 }
 
 const sortByAscendingOrder = (list) => {
-  //const ans = list.reduce((a,b) => )
+  const ans = list.map(item => {
+    return {
+      ...item,
+      totalMarks: utils.findTotalMarks(item.marks)
+    }
+  })
+  const result = ans.sort((a,b) => a.totalMarks - b.totalMarks)
+  return result
+}
+
+const sortByDescendingOrder = (list) => {
+  const ans = list.map(item => {
+    return {
+      ...item,
+      totalMarks: utils.findTotalMarks(item.marks)
+    }
+  })
+  const result = ans.sort((a,b) => b.totalMarks - a.totalMarks)
+  return result
 }
 
 function sortTotalMarksAscending() {
@@ -46,6 +65,15 @@ function sortTotalMarksAscending() {
   }
 }
 
+function sortTotalMarksDescending() {
+  return (dispatch, getState) => {
+    dispatch(requestSortTotalMarksDescending())
+    const studentList = getState().studentDetails.data
+    dispatch(receiveSortTotalMarksDescending(sortByDescendingOrder(studentList)))
+  }
+}
+
 export {
-  sortTotalMarksAscending
+  sortTotalMarksAscending,
+  sortTotalMarksDescending
 }

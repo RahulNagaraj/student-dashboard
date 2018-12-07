@@ -50,7 +50,15 @@ class StudentDetails extends Component {
   }
 
   renderStudentDetails() {
-    const { studentDetails, isFiltered, filteredList, isSorted, sortedList } = this.props
+    const { 
+      studentDetails, 
+      isFiltered, 
+      filteredList, 
+      isSorted, 
+      sortedList, 
+      sortedTMList, 
+      isTMSorted 
+    } = this.props
     let studentList = []
     if (isFiltered && isSorted) {
       studentList = sortedList.filter(o => !!filteredList.find(o2 => o.rollNo === o2.rollNo))
@@ -58,6 +66,8 @@ class StudentDetails extends Component {
       studentList = filteredList.map(a => a)
     } else if (isSorted){
       studentList = sortedList.map(a => a)
+    } else if (isTMSorted){
+      studentList = sortedTMList.map(a => a)
     } else {
       studentList = studentDetails.map(a => a)
     }
@@ -86,8 +96,10 @@ class StudentDetails extends Component {
 StudentDetails.defaultProps = {
   filteredList: [],
   sortedList: [],
+  sortedTMList: [],
   isSorted: false,
-  isFiltered: false
+  isFiltered: false,
+  isTMSorted: false,
 }
 
 StudentDetails.propTypes = {
@@ -97,24 +109,29 @@ StudentDetails.propTypes = {
   filteredList: PropTypes.array,
   isFiltered: PropTypes.bool,
   isSorted: PropTypes.bool,
-  sortedList: PropTypes.array
+  isTMSorted: PropTypes.bool,
+  sortedList: PropTypes.array,
+  sortedTMList: PropTypes.array
 }
 
 function mapStateToProps(state) {
-  const { studentDetails, filterNames, sortNames } = state
+  const { studentDetails, filterNames, sortNames, sortMarks } = state
   const { isFetching } = studentDetails || {
     isFetching: true,
     data: []
   }
   const { isFiltered, filteredList } = filterNames
   const { isSorted, sortedList } = sortNames
+  const { isTMSorted, sortedTMList } = sortMarks
   return {
     studentDetails: studentDetails.data,
     filteredList,
     isFiltered,
     isFetching,
     sortedList,
-    isSorted
+    isSorted,
+    isTMSorted,
+    sortedTMList
   }
 }
 
