@@ -22,3 +22,17 @@ Student Dashboard
   3.8 Clicking on a card will take the user to the details page where all the details of the student will be shown. The url should reflect the id of the student. Eg. http://localhost:5050/55 (student with id 55)
 
   3.9 Inside the details page along with details a bar graph will be shown of the marks in individual subjects scored by the student
+
+## Installation
+
+```bash
+git clone https://github.com/RahulNagaraj/student-dashboard
+cd student-dashboard
+npm install
+```
+
+## Get started
+
+```bash
+npm start
+```
