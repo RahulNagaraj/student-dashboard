@@ -9,6 +9,8 @@ import {
   NavLink
 } from 'reactstrap';
 
+import Search from '../search';
+
 export default class Header extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +35,9 @@ export default class Header extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+              <NavItem>
+                <Search />
+              </NavItem>
               <NavItem>
                 <NavLink href="/about-us">About Us</NavLink>
               </NavItem>
