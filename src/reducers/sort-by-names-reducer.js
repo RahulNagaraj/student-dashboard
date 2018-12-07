@@ -11,10 +11,23 @@ export default (state = initialState, action) => {
     case types.REQUEST_SORT_NAMES_ALPHABETICALLY:
       return Object.assign({}, state, {
         isSorted: false,
+        sortBy: 'asc',
       })
     case types.RECEIVE_SORT_NAMES_ALPHABETICALLY:
       return Object.assign({}, state, {
         isSorted: true,
+        sortBy: 'desc',
+        sortedList: action.data,
+      })
+    case types.REQUEST_SORT_NAMES_REVERSE_ALPHABETICALLY:
+      return Object.assign({}, state, {
+        isSorted: false,
+        sortBy: 'desc',
+      })
+    case types.RECEIVE_SORT_NAMES_REVERSE_ALPHABETICALLY:
+      return Object.assign({}, state, {
+        isSorted: true,
+        sortBy: 'asc',
         sortedList: action.data,
       })
     default:

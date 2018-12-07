@@ -10,7 +10,7 @@ import {
   Button
 } from 'reactstrap';
 import Search from '../search';
-import { sortNames } from '../../actions/'
+import { sort } from '../../actions/'
 
 class Header extends Component {
   constructor(props) {
@@ -29,7 +29,14 @@ class Header extends Component {
   }
 
   handleOnClick = (event) => {
-    this.props.sortNames()
+    console.log(this.props.sortNames)
+    const { sortNames } = this.props
+    if (sortNames.sortBy === 'asc') {
+      this.props.sortAsc()
+    } else {
+      this.props.sortDesc()
+    }
+    
   }
 
   render() {
@@ -59,8 +66,16 @@ class Header extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    sortNames: () => dispatch(sortNames.sortNamesAlphabetically())
+    sortAsc: () => dispatch(sort.sortNamesAlphabetically()),
+    sortDesc: () => dispatch(sort.sortNamesReverseAlphabetically()),
   }
 }
 
-export default connect(null, mapDispatchToProps)(Header)
+function mapStateToProps(state) {
+  const { sortNames } = state;
+  return {
+    sortNames
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

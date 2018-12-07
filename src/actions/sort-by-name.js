@@ -18,6 +18,23 @@ const receiveSortNamesAlphabetically = (data) => {
   }
 }
 
+const requestSortNamesReverseAlphabetically = () => {
+  return dispatch => {
+    dispatch({
+      type: types.REQUEST_SORT_NAMES_REVERSE_ALPHABETICALLY
+    })
+  }
+}
+
+const receiveSortNamesReverseAlphabetically = (data) => {
+  return dispatch => {
+    dispatch({
+      type: types.RECEIVE_SORT_NAMES_REVERSE_ALPHABETICALLY,
+      data
+    })
+  }
+}
+
 const sortByAscendingOrder = (list) => {
   return list.sort((a, b) => {
     if (a.name < b.name) return -1
@@ -26,14 +43,31 @@ const sortByAscendingOrder = (list) => {
   })
 }
 
+const sortByDescendingOrder = (list) => {
+  return list.sort((a, b) => {
+    if (a.name > b.name) return -1
+    else if (a.name < b.name) return 1
+    else return 0
+  })
+}
+
 function sortNamesAlphabetically() {
   return (dispatch, getState) => {
     dispatch(requestSortNamesAlphabetically())
-    const studentList = getState().studentDetails.data
+    const studentList = utils.getStudentsList(getState())
     dispatch(receiveSortNamesAlphabetically(sortByAscendingOrder(studentList)))
   }
 }
 
+function sortNamesReverseAlphabetically() {
+  return (dispatch, getState) => {
+    dispatch(requestSortNamesReverseAlphabetically())
+    const studentList = utils.getStudentsList(getState())
+    dispatch(receiveSortNamesReverseAlphabetically(sortByDescendingOrder(studentList)))
+  }
+}
+
 export {
+  sortNamesReverseAlphabetically,
   sortNamesAlphabetically
 }

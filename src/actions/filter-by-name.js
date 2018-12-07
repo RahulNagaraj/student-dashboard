@@ -25,7 +25,7 @@ const filterNames = (students, inputString) => {
 function filterByName(inputString) {
   return (dispatch, getState) => {
     dispatch(requestFilterByName())
-    const studentDetails = getState().studentDetails.data
+    const studentDetails = utils.getStudentsList(getState())
     dispatch(receiveFilterByName(filterNames(studentDetails, inputString)))
   }
 }
