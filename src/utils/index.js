@@ -18,3 +18,21 @@ export function getStudentsList(state) {
     return studentDetails.data.map(a => a)
   }
 }
+
+export function getList(isFiltered, filteredList, isSorted, sortedList, studentDetails) {
+  if (isFiltered) {
+    if (isSorted) {
+      return sortedList.map(a => a)
+    } else {
+      return filteredList.map(a => a)
+    }
+  } else if (isSorted) {
+    if (isFiltered) {
+      return filteredList.map(a => a)
+    } else {
+      return sortedList.map(a => a)
+    }
+  } else {
+    return studentDetails.map(a => a)
+  }
+}

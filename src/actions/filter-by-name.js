@@ -1,5 +1,4 @@
 import * as types from './types'
-import * as utils from '../utils'
 
 const requestFilterByName = () => {
   return dispatch => {
@@ -25,7 +24,7 @@ const filterNames = (students, inputString) => {
 function filterByName(inputString) {
   return (dispatch, getState) => {
     dispatch(requestFilterByName())
-    const studentDetails = utils.getStudentsList(getState())
+    const studentDetails = getState().studentDetails.data
     dispatch(receiveFilterByName(filterNames(studentDetails, inputString)))
   }
 }

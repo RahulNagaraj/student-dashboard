@@ -1,5 +1,4 @@
 import * as types from './types'
-import * as utils from '../utils'
 
 const requestSortNamesAlphabetically = () => {
   return dispatch => {
@@ -54,7 +53,7 @@ const sortByDescendingOrder = (list) => {
 function sortNamesAlphabetically() {
   return (dispatch, getState) => {
     dispatch(requestSortNamesAlphabetically())
-    const studentList = utils.getStudentsList(getState())
+    const studentList = getState().studentDetails.data
     dispatch(receiveSortNamesAlphabetically(sortByAscendingOrder(studentList)))
   }
 }
@@ -62,7 +61,7 @@ function sortNamesAlphabetically() {
 function sortNamesReverseAlphabetically() {
   return (dispatch, getState) => {
     dispatch(requestSortNamesReverseAlphabetically())
-    const studentList = utils.getStudentsList(getState())
+    const studentList = getState().studentDetails.data
     dispatch(receiveSortNamesReverseAlphabetically(sortByDescendingOrder(studentList)))
   }
 }

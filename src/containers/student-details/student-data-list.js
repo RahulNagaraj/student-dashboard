@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Col,
   Card,
   CardText, 
   CardBody,
-  CardTitle
+  CardTitle,
 } from 'reactstrap';
 
 const getTotalMarks = (marks) => {
@@ -13,15 +12,13 @@ const getTotalMarks = (marks) => {
 }
 
 const StudentDataList = (props) => (
-  <Col xs="3">
-    <Card>
-      <CardBody>
-        <CardTitle>{props.studentData.name}</CardTitle>
-        <CardText>Roll No: {props.studentData.rollNo}</CardText>
-        <CardText>Total Marks: {getTotalMarks(props.studentData.marks)}</CardText>
-      </CardBody>
-    </Card>
-  </Col>
+  <Card>
+    <CardBody>
+      <CardTitle>{props.studentData.name}</CardTitle>
+      <CardText>Roll No: {props.studentData.rollNo}</CardText>
+      <CardText>Total Marks: {getTotalMarks(props.studentData.marks)}</CardText>
+    </CardBody>
+  </Card>
 )
 
 StudentDataList.propTypes = {

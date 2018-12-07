@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
   Container,
-  Row,
-  Alert
+  Alert,
+  CardColumns
 } from 'reactstrap'
 import Loader from '../../common/loader'
 import StudentDataList from './student-data-list'
 import { studentDetails } from '../../actions/index'
+import * as utils from '../../utils'
 
 class StudentDetails extends Component {
   componentDidMount() {
@@ -28,7 +29,7 @@ class StudentDetails extends Component {
     return (
       <div>
         <Container fluid>
-          <Row>
+          <CardColumns>
             {
               studentList.map(studentData => (
                 <StudentDataList 
@@ -37,7 +38,7 @@ class StudentDetails extends Component {
                 />
               ))
             }
-          </Row>
+          </CardColumns>
         </Container>
       </div>
     )
@@ -46,18 +47,12 @@ class StudentDetails extends Component {
   renderStudentDetails() {
     const { studentDetails, isFiltered, filteredList, isSorted, sortedList } = this.props
     let studentList = []
-    if (isFiltered) {
-      if (isSorted) {
-        studentList = sortedList.map(a => a)
-      } else {
-        studentList = filteredList.map(a => a)
-      }
-    } else if (isSorted) {
-      if (isFiltered) {
-        studentList = filteredList.map(a => a)
-      } else {
-        studentList = sortedList.map(a => a)
-      }
+    if (isFiltered && isSorted) {
+      studentList = sortedList.filter(o => !!filteredList.find(o2 => o.rollNo === o2.rollNo))
+    } else if (isFiltered) {
+      studentList = filteredList.map(a => a)
+    } else if (isSorted){
+      studentList = sortedList.map(a => a)
     } else {
       studentList = studentDetails.map(a => a)
     }
