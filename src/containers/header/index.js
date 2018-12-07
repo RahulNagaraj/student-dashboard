@@ -9,6 +9,8 @@ import {
   NavItem,
   Button
 } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSortAmountUp, faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
 import Search from '../search';
 import { 
   sort,
@@ -51,6 +53,7 @@ class Header extends Component {
   }
 
   render() {
+    const { sortNames, sortMarks } = this.props
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -69,7 +72,9 @@ class Header extends Component {
                   color="info"
                   onClick={this.handleOnNameBtnClick}
                 >
-                Sort By Name</Button>
+                Sort By Name
+                <FontAwesomeIcon className="ml-1" icon={sortNames.sortBy === 'asc' ? faSortAmountUp : faSortAmountDown } />
+                </Button>
               </NavItem>
               <NavItem>
                 <Button
@@ -77,7 +82,9 @@ class Header extends Component {
                   color="info"
                   onClick={this.handleOnTMBtnClick}
                 >
-                Sort By Total Marks</Button>
+                Sort By Total Marks
+                <FontAwesomeIcon className="ml-1" icon={sortMarks.sortBy === 'asc' ? faSortAmountUp : faSortAmountDown } />
+                </Button>
               </NavItem>
             </Nav>
           </Collapse>
