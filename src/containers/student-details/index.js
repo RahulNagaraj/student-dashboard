@@ -26,7 +26,7 @@ class StudentDetails extends Component {
   }
 
   navigate = (data) => {
-    this.props.history.push(`/student-information/${data.rollNo}`, data)
+    this.props.history.push(`/${data.rollNo}`, data)
   }
 
   renderStudentList(studentList) {
