@@ -5,6 +5,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import store, { history } from './store'
 import App from './containers/app'
 
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import 'sanitize.css/sanitize.css'
 import './index.css'
 
