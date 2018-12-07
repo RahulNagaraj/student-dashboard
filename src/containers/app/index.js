@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import Home from '../home'
-import About from '../about'
 import Header from '../header'
+import StudentInformation from '../student-information'
 
 const App = () => (
   <div>
@@ -10,7 +10,7 @@ const App = () => (
 
     <main>
       <Route exact path="/" component={Home} />
-      <Route exact path="/about-us" component={About} />
+      <Route exact path="/student-information/:id" component={StudentInformation} />
     </main>
   </div>
 )

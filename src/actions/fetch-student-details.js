@@ -30,7 +30,7 @@ function fetchStudentData() {
 
 function shouldFetchStudentData(state) {
   const studentDetails = state.studentDetails
-  if (studentDetails || studentDetails.data.length < 0) {
+  if (!studentDetails || studentDetails.data.length < 1) {
     return true
   } else if (studentDetails.isFetching) {
     return false

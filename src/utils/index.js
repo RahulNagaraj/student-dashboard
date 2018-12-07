@@ -36,3 +36,7 @@ export function getList(isFiltered, filteredList, isSorted, sortedList, studentD
     return studentDetails.map(a => a)
   }
 }
+
+export function findTotalMarks(marks) {
+  return Object.values(marks).reduce((a, b) => a + b, 0)
+}

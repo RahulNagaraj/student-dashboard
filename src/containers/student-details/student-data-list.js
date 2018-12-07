@@ -2,22 +2,25 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Card,
-  CardText, 
   CardBody,
   CardTitle,
+  CardHeader,
+  CardFooter,
+  CardText
 } from 'reactstrap';
-
-const getTotalMarks = (marks) => {
-  return Object.values(marks).reduce((a,b) => a + b, 0)
-}
+import * as utils from '../../utils'
 
 const StudentDataList = (props) => (
-  <Card>
+  <Card
+    className="text-center"
+    onClick={() => props.onClickHandler(props.studentData)}
+    >
+    <CardHeader>Name: {props.studentData.name}</CardHeader>
     <CardBody>
-      <CardTitle>{props.studentData.name}</CardTitle>
-      <CardText>Roll No: {props.studentData.rollNo}</CardText>
-      <CardText>Total Marks: {getTotalMarks(props.studentData.marks)}</CardText>
+      <CardTitle>Roll No: {props.studentData.rollNo}</CardTitle>
+      <CardText>Class: {props.studentData.class}</CardText>
     </CardBody>
+    <CardFooter>Total Marks: {utils.findTotalMarks(props.studentData.marks)}</CardFooter>
   </Card>
 )
 

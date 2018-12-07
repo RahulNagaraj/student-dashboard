@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   Container,
@@ -9,7 +10,6 @@ import {
 import Loader from '../../common/loader'
 import StudentDataList from './student-data-list'
 import { studentDetails } from '../../actions/index'
-import * as utils from '../../utils'
 
 class StudentDetails extends Component {
   componentDidMount() {
@@ -25,6 +25,10 @@ class StudentDetails extends Component {
     )
   }
 
+  navigate = (data) => {
+    this.props.history.push(`/student-information/${data.rollNo}`, data)
+  }
+
   renderStudentList(studentList) {
     return (
       <div>
@@ -35,6 +39,7 @@ class StudentDetails extends Component {
                 <StudentDataList 
                   key={studentData.rollNo}
                   studentData={studentData}
+                  onClickHandler={this.navigate}
                 />
               ))
             }
@@ -102,4 +107,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(StudentDetails)
+export default connect(mapStateToProps)(withRouter(StudentDetails))
