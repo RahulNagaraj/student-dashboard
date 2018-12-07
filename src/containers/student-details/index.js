@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {
   Container,
   Alert,
-  CardColumns
+  Row
 } from 'reactstrap'
 import Loader from '../../common/loader'
 import StudentDataList from './student-data-list'
@@ -33,7 +33,7 @@ class StudentDetails extends Component {
     return (
       <div>
         <Container fluid>
-          <CardColumns>
+          <Row>
             {
               studentList.map(studentData => (
                 <StudentDataList 
@@ -43,7 +43,7 @@ class StudentDetails extends Component {
                 />
               ))
             }
-          </CardColumns>
+          </Row>
         </Container>
       </div>
     )

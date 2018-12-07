@@ -61,7 +61,9 @@ class Header extends Component {
               <NavItem>
                 <Search />
               </NavItem>
-              <NavItem>
+              <NavItem
+                className="mr-2"
+              >
                 <Button
                   outline
                   color="info"
