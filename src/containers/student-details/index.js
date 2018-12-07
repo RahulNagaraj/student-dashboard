@@ -44,8 +44,23 @@ class StudentDetails extends Component {
   }
 
   renderStudentDetails() {
-    const { studentDetails, filteredList, isFiltered } = this.props
-    const studentList = isFiltered ? filteredList : studentDetails
+    const { studentDetails, isFiltered, filteredList, isSorted, sortedList } = this.props
+    //const studentList = isFiltered ? filteredList : studentDetails
+    let studentList = []
+    if (isFiltered) {
+      if (isSorted) {
+        studentList = filteredList.concat(sortedList)
+      }
+      studentList = filteredList.map(a => a)
+    } else if (isSorted) {
+      if (isFiltered) {
+        filteredList.concat(sortedList)
+      }
+      studentList = sortedList.map(a => a)
+    } else {
+      studentList = studentDetails.map(a => a)
+    }
+    console.log(studentList)
     if (studentList && studentList.length > 0) {
       return this.renderStudentList(studentList)
     }
@@ -75,17 +90,21 @@ StudentDetails.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { studentDetails, filteredNames } = state
+  const { studentDetails, filterNames, sortNames } = state
   const { isFetching } = studentDetails || {
     isFetching: true,
     data: []
   }
-  const { filteredList, isFiltered } = filteredNames
+  const { isFiltered, filteredList } = filterNames
+  const { isSorted, sortedList } = sortNames
+  console.log(state)
   return {
     studentDetails: studentDetails.data,
+    filteredList,
     isFiltered,
-    filteredList: filteredList,
-    isFetching
+    isFetching,
+    sortedList,
+    isSorted
   }
 }
 

@@ -1,4 +1,5 @@
 import * as types from './types'
+import * as utils from '../utils'
 
 const requestFilterByName = () => {
   return dispatch => {

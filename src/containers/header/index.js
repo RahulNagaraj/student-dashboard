@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   Collapse,
   Navbar,
@@ -6,12 +7,12 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  Button
 } from 'reactstrap';
-
 import Search from '../search';
+import { sortNames } from '../../actions/'
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -27,6 +28,10 @@ export default class Header extends Component {
     });
   }
 
+  handleOnClick = (event) => {
+    this.props.sortNames()
+  }
+
   render() {
     return (
       <div>
@@ -39,7 +44,10 @@ export default class Header extends Component {
                 <Search />
               </NavItem>
               <NavItem>
-                <NavLink href="/about-us">About Us</NavLink>
+                <Button 
+                  color="info"
+                  onClick={this.handleOnClick}
+                >Sort By</Button>
               </NavItem>
             </Nav>
           </Collapse>
@@ -48,3 +56,11 @@ export default class Header extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    sortNames: () => dispatch(sortNames.sortNamesAlphabetically())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Header)
