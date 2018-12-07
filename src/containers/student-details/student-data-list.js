@@ -25,7 +25,8 @@ const StudentDataList = (props) => (
 )
 
 StudentDataList.propTypes = {
-  studentData: PropTypes.shape({}).isRequired
+  studentData: PropTypes.shape({}).isRequired,
+  onClickHandler: PropTypes.func.isRequired
 }
 
 export default StudentDataList

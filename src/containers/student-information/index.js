@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { 
   Jumbotron,
   Card,
@@ -26,7 +27,6 @@ export default class StudentInformation extends PureComponent {
 
   render() {
     const studentData = this.props.location.state
-    console.log(studentData)
     return (
       <div>
         <Jumbotron>
@@ -52,4 +52,8 @@ export default class StudentInformation extends PureComponent {
       </div>
     )
   }
+}
+
+StudentInformation.propTypes = {
+  location: PropTypes.shape({}).isRequired,
 }

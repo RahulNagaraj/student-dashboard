@@ -83,10 +83,21 @@ class StudentDetails extends Component {
   }
 }
 
+StudentDetails.defaultProps = {
+  filteredList: [],
+  sortedList: [],
+  isSorted: false,
+  isFiltered: false
+}
+
 StudentDetails.propTypes = {
   studentDetails: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  filteredList: PropTypes.array,
+  isFiltered: PropTypes.bool,
+  isSorted: PropTypes.bool,
+  sortedList: PropTypes.array
 }
 
 function mapStateToProps(state) {
