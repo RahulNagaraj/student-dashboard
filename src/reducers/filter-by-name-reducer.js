@@ -1,22 +1,20 @@
 import * as types from '../actions/types'
 
 const initialState = {
-  isFetching: false,
-  data: [],
-  receivedAt: ''
+  isFiltered: false,
+  filteredList: []
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.REQUEST_STUDENT_DETAILS:
+    case types.REQUEST_FILTERED_NAMES:
       return Object.assign({}, state, {
-        isFetching: true
+        isFiltered: false,
       })
-    case types.RECEIVE_STUDENT_DETAILS:
+    case types.RECEIVE_FILTERED_NAMES:
       return Object.assign({}, state, {
-        isFetching: false,
-        data: action.data,
-        receivedAt: Date.now()
+        isFiltered: true,
+        filteredList: action.data,
       })
     default:
       return state

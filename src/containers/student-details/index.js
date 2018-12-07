@@ -4,12 +4,7 @@ import { connect } from 'react-redux'
 import {
   Container,
   Row,
-  Col,
-  Card,
-  CardText, 
-  CardBody,
-  CardTitle, 
-  CardSubtitle
+  Alert
 } from 'reactstrap'
 import Loader from '../../common/loader'
 import StudentDataList from './student-data-list'
@@ -29,26 +24,13 @@ class StudentDetails extends Component {
     )
   }
 
-  renderDataList() {
-    return (
-      <Card>
-        <CardBody>
-          <CardTitle>hi</CardTitle>
-          <CardSubtitle>{'studentData.rollNo'}</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-        </CardBody>
-      </Card>
-    )
-  }
-
-  renderStudentDetails() {
-    const { studentDetails } = this.props
+  renderStudentList(studentList) {
     return (
       <div>
         <Container fluid>
           <Row>
             {
-              studentDetails.map(studentData => (
+              studentList.map(studentData => (
                 <StudentDataList 
                   key={studentData.rollNo}
                   studentData={studentData}
@@ -61,9 +43,23 @@ class StudentDetails extends Component {
     )
   }
 
+  renderStudentDetails() {
+    const { studentDetails, filteredList, isFiltered } = this.props
+    const studentList = isFiltered ? filteredList : studentDetails
+    if (studentList && studentList.length > 0) {
+      return this.renderStudentList(studentList)
+    }
+    return (
+      <Container fluid>
+        <Alert color="info">
+          No Student Found
+        </Alert>
+      </Container>
+    )
+  }
+
   render () {
-    const { studentDetails, isFetching } = this.props;
-    console.log('studentDetails: ', studentDetails);
+    const { isFetching } = this.props;
     if (isFetching) {
       return this.renderLoader()
     } else {
@@ -79,13 +75,16 @@ StudentDetails.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { studentDetails } = state
+  const { studentDetails, filteredNames } = state
   const { isFetching } = studentDetails || {
     isFetching: true,
     data: []
   }
+  const { filteredList, isFiltered } = filteredNames
   return {
     studentDetails: studentDetails.data,
+    isFiltered,
+    filteredList: filteredList,
     isFetching
   }
 }
