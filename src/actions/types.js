@@ -1,0 +1,2 @@
+export const REQUEST_STUDENT_DETAILS = 'student-details/REQUEST_STUDENT_DETAILS'
+export const RECEIVE_STUDENT_DETAILS = 'student-details/RECEIVE_STUDENT_DETAILS'
