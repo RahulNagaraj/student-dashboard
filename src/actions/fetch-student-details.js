@@ -14,7 +14,7 @@ const receiveStudentDetails = (data) => {
   return dispatch => {
     dispatch({
       type: types.RECEIVE_STUDENT_DETAILS,
-      data
+      data: Object.values(data)
     })
   }
 }

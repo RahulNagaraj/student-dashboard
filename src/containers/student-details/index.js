@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { 
+import {
+  Container,
+  Row,
+  Col,
   Card,
   CardText, 
   CardBody,
   CardTitle, 
-  CardSubtitle,
-  Container,
-  Col,
-  Row
-} from 'reactstrap';
-import { studentDetails } from '../../actions/index' 
+  CardSubtitle
+} from 'reactstrap'
+import Loader from '../../common/loader'
+import StudentDataList from './student-data-list'
+import { studentDetails } from '../../actions/index'
 
 class StudentDetails extends Component {
   componentDidMount() {
@@ -19,49 +21,59 @@ class StudentDetails extends Component {
     dispatch(studentDetails.fetchStudentDataIfNeeded())
   }
 
-  render () {
-    const { studentDetails } = this.props;
-    console.log('studentDetails: ', studentDetails);
+  renderLoader() {
     return (
       <div>
-        <Container>
+        <Loader loaderMessage='Fetching Data...' />
+      </div>
+    )
+  }
+
+  renderDataList() {
+    return (
+      <Card>
+        <CardBody>
+          <CardTitle>hi</CardTitle>
+          <CardSubtitle>{'studentData.rollNo'}</CardSubtitle>
+          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+        </CardBody>
+      </Card>
+    )
+  }
+
+  renderStudentDetails() {
+    const { studentDetails } = this.props
+    return (
+      <div>
+        <Container fluid>
           <Row>
-            <Col>
-              <Card>
-                <CardBody>
-                  <CardTitle>Student 1</CardTitle>
-                  <CardSubtitle>Student ID</CardSubtitle>
-                  <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col>
-              <Card>
-                <CardBody>
-                  <CardTitle>Card title</CardTitle>
-                  <CardSubtitle>Card subtitle</CardSubtitle>
-                  <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col>
-              <Card>
-                <CardBody>
-                  <CardTitle>Card title</CardTitle>
-                  <CardSubtitle>Card subtitle</CardSubtitle>
-                  <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                </CardBody>
-              </Card>
-            </Col>
+            {
+              studentDetails.map(studentData => (
+                <StudentDataList 
+                  key={studentData.rollNo}
+                  studentData={studentData}
+                />
+              ))
+            }
           </Row>
         </Container>
       </div>
     )
   }
+
+  render () {
+    const { studentDetails, isFetching } = this.props;
+    console.log('studentDetails: ', studentDetails);
+    if (isFetching) {
+      return this.renderLoader()
+    } else {
+      return this.renderStudentDetails()
+    }
+  }
 }
 
 StudentDetails.propTypes = {
-  studentDetails: PropTypes.shape({}).isRequired,
+  studentDetails: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 }
@@ -73,7 +85,7 @@ function mapStateToProps(state) {
     data: []
   }
   return {
-    studentDetails,
+    studentDetails: studentDetails.data,
     isFetching
   }
 }
